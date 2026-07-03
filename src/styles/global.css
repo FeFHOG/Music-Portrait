@@ -92,7 +92,7 @@ body::after {
   mix-blend-mode: difference;
 }
 
-.plotter-canvas {
+.spatial-canvas {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -116,6 +116,129 @@ body::after {
   position: relative;
   z-index: 2;
   overflow-x: clip;
+}
+
+.fold-stage {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.fold-space {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.block-panel {
+  position: absolute;
+  border: 1px solid rgba(243, 239, 230, 0.16);
+  background:
+    linear-gradient(135deg, rgba(244, 12, 63, 0.22), rgba(243, 239, 230, 0.03)),
+    rgba(22, 0, 0, 0.52);
+  box-shadow:
+    inset 0 0 0 1px rgba(22, 0, 0, 0.44),
+    0 34px 90px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.block-panel::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(243, 239, 230, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 239, 230, 0.12) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.block-panel--ceiling {
+  top: -18%;
+  left: 12%;
+  width: 76%;
+  height: 36%;
+  transform: rotateX(-72deg) translateZ(-70px);
+}
+
+.block-panel--floor {
+  left: 5%;
+  right: 5%;
+  bottom: -20%;
+  height: 44%;
+  transform: rotateX(68deg) translateZ(-60px);
+}
+
+.block-panel--left {
+  top: 13%;
+  left: -15%;
+  width: 34%;
+  height: 74%;
+  transform: rotateY(62deg) translateZ(-40px);
+}
+
+.block-panel--right {
+  top: 9%;
+  right: -18%;
+  width: 42%;
+  height: 80%;
+  transform: rotateY(-58deg) translateZ(-30px);
+}
+
+.block-panel--floating {
+  width: 18rem;
+  height: 13rem;
+  background:
+    linear-gradient(145deg, rgba(243, 239, 230, 0.1), rgba(244, 12, 63, 0.18)),
+    rgba(22, 0, 0, 0.62);
+}
+
+.block-panel--floating.one {
+  top: 22%;
+  left: 46%;
+  transform: translateZ(150px) rotateZ(-8deg) rotateY(-18deg);
+}
+
+.block-panel--floating.two {
+  right: 13%;
+  bottom: 18%;
+  transform: translateZ(220px) rotateZ(6deg) rotateY(20deg);
+}
+
+.fold-map {
+  perspective: 900px;
+  transform-style: preserve-3d;
+}
+
+.block-panel--map {
+  inset: auto;
+}
+
+.block-panel--map.back {
+  top: 6%;
+  left: 8%;
+  width: 72%;
+  height: 60%;
+  transform: rotateX(9deg) rotateY(-12deg) translateZ(-90px);
+}
+
+.block-panel--map.side {
+  top: 20%;
+  right: 5%;
+  width: 30%;
+  height: 70%;
+  transform: rotateY(-64deg) translateZ(20px);
+}
+
+.block-panel--map.slab {
+  left: 16%;
+  bottom: -4%;
+  width: 66%;
+  height: 28%;
+  transform: rotateX(68deg) translateZ(-20px);
 }
 
 .site-scrollbar {

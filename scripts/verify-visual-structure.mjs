@@ -1,19 +1,21 @@
 import { existsSync, readFileSync } from "node:fs";
 
 const page = readFileSync("src/pages/index.astro", "utf8");
-const scriptPath = "src/scripts/plotter-field.js";
+const scriptPath = "src/scripts/spatial-field.js";
 const scriptExists = existsSync(scriptPath);
 const script = scriptExists ? readFileSync(scriptPath, "utf8") : "";
 
 const checks = [
-  ["page uses plotter canvas", page.includes('id="plotter-canvas"')],
-  ["page has separator strips", page.includes("separator-strip")],
+  ["page uses spatial canvas", page.includes('id="spatial-canvas"')],
+  ["page no longer uses plotter canvas", !page.includes('id="plotter-canvas"')],
+  ["page has folded stage", page.includes("fold-stage")],
+  ["page has block panels", page.includes("block-panel")],
   ["page has custom scrollbar", page.includes("site-scrollbar")],
-  ["page imports plotter script", page.includes("../scripts/plotter-field.js")],
-  ["plotter script exists", scriptExists],
-  ["script exposes plotter drawing", script.includes("drawPlotterField")],
+  ["page imports spatial script", page.includes("../scripts/spatial-field.js")],
+  ["spatial script exists", scriptExists],
+  ["script exposes spatial drawing", script.includes("drawSpatialField")],
   ["script avoids pixel-field image generation", !script.includes("createImageData")],
-  ["script uses pointer displacement", script.includes("pointerInfluence")],
+  ["script uses pointer displacement", script.includes("pointerBend")],
 ];
 
 const failures = checks.filter(([, ok]) => !ok);
