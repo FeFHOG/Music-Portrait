@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Portrait</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="cursor-light" aria-hidden="true"></div>
+    <main class="page-shell">
+      <section class="hero" id="top" aria-labelledby="portrait-title">
+        <canvas class="field-canvas" id="sound-field" aria-hidden="true"></canvas>
+        <div class="hero-media" aria-hidden="true">
+          <img src="./assets/night-groove-texture.png" alt="" />
+        </div>
+
+        <header class="site-chrome">
+          <a class="mark" href="#top">Music Portrait</a>
+          <nav aria-label="sound index">
+            <a href="#map">Map</a>
+            <a href="#rooms">Rooms</a>
+            <a href="#anchors">Anchors</a>
+          </nav>
+        </header>
+
+        <div class="hero-composition" aria-hidden="true">
+          <div class="record-window">
+            <img src="./assets/night-groove-texture.png" alt="" />
+            <span class="record-ring one"></span>
+            <span class="record-ring two"></span>
+            <span class="needle"></span>
+          </div>
+          <div class="wave-stack">
+            <span style="--h: 42%"></span>
+            <span style="--h: 70%"></span>
+            <span style="--h: 52%"></span>
+            <span style="--h: 88%"></span>
+            <span style="--h: 36%"></span>
+            <span style="--h: 64%"></span>
+            <span style="--h: 48%"></span>
+            <span style="--h: 78%"></span>
+          </div>
+        </div>
+
+        <div class="hero-content reveal">
+          <span class="chapter-index">01 / 04</span>
+          <p class="eyebrow">Warm grooves, blue notes, midnight motion</p>
+          <h1 id="portrait-title">
+            <span>Blue notes.</span>
+            <span>Velvet motion.</span>
+          </h1>
+          <p class="hero-copy">
+            The center of gravity sits between smooth soul, electric blues, neon funk,
+            soft R&B, and pop songs that carry memory in the edges.
+          </p>
+
+          <div class="anchor-strip" aria-label="reference tracks">
+            <span>Just the Two of Us</span>
+            <span>I'll Play the Blues for You</span>
+            <span>Take 'Em Up</span>
+            <span>Daft Punk axis</span>
+          </div>
+        </div>
+
+        <aside class="signal-panel reveal" aria-label="core music signal">
+          <p>Core Signal</p>
+          <strong>Velvet chords. Clean basslines. Blue guitar heat. Filtered dancefloor light.</strong>
+          <small>Restraint with a pulse.</small>
+        </aside>
+      </section>
+
+      <section class="marquee-section" aria-label="music texture">
+        <div class="marquee-track">
+          <span>smooth soul</span>
+          <span>electric blues</span>
+          <span>neon funk</span>
+          <span>soft r&b</span>
+          <span>memory pop</span>
+          <span>late-night groove</span>
+          <span>smooth soul</span>
+          <span>electric blues</span>
+          <span>neon funk</span>
+          <span>soft r&b</span>
+          <span>memory pop</span>
+          <span>late-night groove</span>
+        </div>
+      </section>
+
+      <section class="section map-section" id="map" aria-labelledby="map-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Taste spectrum</p>
+          <h2 id="map-title">Not genre-hopping. Mood-layering.</h2>
+        </div>
+
+        <div class="sound-map-wrap reveal">
+          <div class="sound-map" aria-label="interactive sound map">
+            <button
+              class="sound-node active"
+              style="--x: 18%; --y: 34%; --tone: var(--copper)"
+              data-title="Old Soul Warmth"
+              data-copy="Smooth soul, jazz-tinted chords, late-night brass, and songs that feel lived in."
+            >
+              <span>01</span>
+              Old Soul
+            </button>
+            <button
+              class="sound-node"
+              style="--x: 38%; --y: 64%; --tone: var(--wine)"
+              data-title="Electric Blues Weight"
+              data-copy="Guitar tone, slow-burn phrasing, smoky rhythm sections, and emotional directness."
+            >
+              <span>02</span>
+              Blues
+            </button>
+            <button
+              class="sound-node"
+              style="--x: 70%; --y: 26%; --tone: var(--cyan)"
+              data-title="Neon Funk Drive"
+              data-copy="Disco-house pulse, French-touch sheen, rubbery bass, and a bright club-engine feel."
+            >
+              <span>03</span>
+              Neon Funk
+            </button>
+            <button
+              class="sound-node"
+              style="--x: 58%; --y: 78%; --tone: var(--mauve)"
+              data-title="Soft R&B Gravity"
+              data-copy="Low-lit vocals, patient drums, warm keys, and a relaxed but carefully shaped groove."
+            >
+              <span>04</span>
+              Soft R&B
+            </button>
+            <button
+              class="sound-node"
+              style="--x: 84%; --y: 58%; --tone: var(--olive)"
+              data-title="Memory Pop"
+              data-copy="Melodic pop and sentimental hooks that work because the color of the memory is stronger than the label."
+            >
+              <span>05</span>
+              Memory Pop
+            </button>
+          </div>
+
+          <article class="map-readout" aria-live="polite">
+            <p class="eyebrow">Active frequency</p>
+            <h3 data-readout-title>Old Soul Warmth</h3>
+            <p data-readout-copy>
+              Smooth soul, jazz-tinted chords, late-night brass, and songs that feel lived in.
+            </p>
+            <div class="frequency-line" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section rooms-section" id="rooms" aria-labelledby="rooms-title">
+        <div class="section-heading compact reveal">
+          <p class="eyebrow">Rooms in the collection</p>
+          <h2 id="rooms-title">Four listening rooms, one pulse.</h2>
+        </div>
+
+        <div class="room-grid">
+          <article class="room-card old-soul reveal">
+            <span>01</span>
+            <h3>Old Soul Afterhours</h3>
+            <p>
+              The home base for smooth classics, blue guitar, warm organ, brushed drums,
+              and voices that do not need to oversell the feeling.
+            </p>
+          </article>
+
+          <article class="room-card neon reveal">
+            <span>02</span>
+            <h3>Neon Funk Dancefloor</h3>
+            <p>
+              Filter sweeps, disco bass, tight claps, and chrome-polished grooves. Less EDM
+              maximalism, more elegant pressure and forward motion.
+            </p>
+          </article>
+
+          <article class="room-card rnb reveal">
+            <span>03</span>
+            <h3>Soft R&B Lowlight</h3>
+            <p>
+              Songs that breathe: intimate vocals, rounded drums, mellow synths, and hooks
+              that feel better when the lights are low.
+            </p>
+          </article>
+
+          <article class="room-card memory reveal">
+            <span>04</span>
+            <h3>Memory Pop</h3>
+            <p>
+              The sentimental wing: melodic pop, Chinese nostalgia, and tracks that work
+              because the color of the memory is stronger than the genre label.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section manifesto-section" aria-labelledby="manifesto-title">
+        <div class="manifesto-grid">
+          <p class="eyebrow reveal">Listening grammar</p>
+          <h2 id="manifesto-title" class="reveal">
+            The music wants polish, but it still needs a little smoke on the glass.
+          </h2>
+          <p class="manifesto-copy reveal">
+            The pattern is clean rather than loud: basslines with posture, chords with
+            warmth, hooks with memory, and rhythm that moves without shouting.
+          </p>
+        </div>
+      </section>
+
+      <section class="section notes-section" id="anchors" aria-labelledby="notes-title">
+        <div class="notes-copy reveal">
+          <p class="eyebrow">Reading the pattern</p>
+          <h2 id="notes-title">The taste prefers groove over noise.</h2>
+          <p>
+            The through-line is not simply old music or dance music. It is restraint with
+            a pulse: arrangements that leave space, rhythm sections with body, and melodies
+            that sound smooth without becoming weightless.
+          </p>
+        </div>
+
+        <div class="track-stack" aria-label="sound anchors">
+          <article class="reveal">
+            <span>Soul anchor</span>
+            <strong>Just the Two of Us</strong>
+            <p>Silky harmony, city-light polish, and a groove that never rushes.</p>
+          </article>
+
+          <article class="reveal">
+            <span>Blues anchor</span>
+            <strong>I'll Play the Blues for You</strong>
+            <p>Slow heat, human guitar phrasing, and a voice built for midnight.</p>
+          </article>
+
+          <article class="reveal">
+            <span>Dance anchor</span>
+            <strong>Take 'Em Up -> Daft Punk</strong>
+            <p>Retro-futurist funk with clean edges, bass discipline, and lift.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
