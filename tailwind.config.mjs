@@ -5,7 +5,7 @@ export default {
       colors: {
         ink: "#f3efe6",
         smoke: "#99938a",
-        void: "#060605",
+        void: "#160000",
         acid: "#ecff29",
         ember: "#ff4f2f",
         pool: "#00d5ff",

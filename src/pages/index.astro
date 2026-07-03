@@ -19,8 +19,11 @@ const rooms = [
     <title>Music Portrait</title>
   </head>
   <body>
-    <canvas class="fluid-canvas" id="fluid-canvas" aria-hidden="true"></canvas>
-    <div class="grain-mask" aria-hidden="true"></div>
+    <canvas class="plotter-canvas" id="plotter-canvas" aria-hidden="true"></canvas>
+    <div class="contrast-field" aria-hidden="true"></div>
+    <div class="site-scrollbar" aria-hidden="true">
+      <span></span>
+    </div>
 
     <main class="site-shell">
       <header class="fixed left-0 right-0 top-0 z-40 flex items-center justify-between px-5 py-4 text-[0.7rem] font-black uppercase tracking-[0.08em] text-ink/80 md:px-8">
@@ -33,6 +36,12 @@ const rooms = [
       </header>
 
       <section id="top" class="museum-space relative grid items-center overflow-hidden px-5 pb-14 pt-24 md:grid-cols-[0.9fr_1.18fr_0.42fr] md:px-8">
+        <div class="separator-strip separator-strip--top" aria-hidden="true">
+          <span>Soul</span><span>Blues</span><span>Funk</span><span>R&B</span><span>Memory</span>
+        </div>
+        <div class="separator-strip separator-strip--bottom" aria-hidden="true">
+          <span>Plotter</span><span>Signal</span><span>Groove</span><span>Pressure</span>
+        </div>
         <div class="relative z-10 order-2 mt-10 md:order-1 md:mt-0">
           <div class="parallax-disc relative mx-auto aspect-square w-[86vw] max-w-[34rem] overflow-hidden rounded-full border border-ink/20 md:w-[40vw]">
             <img class="h-full w-full object-cover opacity-80 mix-blend-screen" src="/images/night-groove-texture.png" alt="" />
@@ -44,11 +53,11 @@ const rooms = [
 
         <div class="relative z-20 order-1 md:order-2">
           <p class="reveal mb-5 font-mono text-xs font-black uppercase text-ember md:mb-8">01 / Blue notes, velvet motion</p>
-          <h1 class="display-type reveal text-[18vw] md:text-[9.3vw]">
+          <h1 class="display-type reveal text-[15.8vw] md:text-[9.3vw]">
             <span class="block track-word">Blue</span>
-            <span class="block track-word">Noise</span>
+            <span class="block track-word">Signal</span>
             <span class="stroke-type block track-word">Velvet</span>
-            <span class="stroke-type block track-word">Pulse</span>
+            <span class="stroke-type block track-word">Grid</span>
           </h1>
           <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-ink/78 md:text-xl">
             Smooth soul, electric blues, neon funk, soft R&B, and pop memory folded
@@ -72,10 +81,13 @@ const rooms = [
       </section>
 
       <section id="signal" class="relative min-h-[115svh] px-5 py-24 md:px-8">
+        <div class="separator-strip separator-strip--section" aria-hidden="true">
+          <span>one page</span><span>typographic</span><span>plotter wave</span><span>noise field</span>
+        </div>
         <div class="mx-auto grid max-w-[90rem] gap-10 md:grid-cols-[0.42fr_1fr]">
           <p class="reveal font-mono text-xs font-black uppercase text-acid">02 / signal map</p>
           <h2 class="display-type reveal max-w-6xl text-[15vw] md:text-[7.8vw]">
-            Not a playlist. A moving weather system.
+            Not a playlist. A pressure diagram.
           </h2>
         </div>
 
@@ -98,6 +110,7 @@ const rooms = [
       </section>
 
       <section id="rooms" class="relative min-h-[100svh] px-5 py-24 md:px-8">
+        <div class="absolute inset-x-5 top-10 h-px bg-ink/20 md:inset-x-8"></div>
         <div class="grid gap-8 md:grid-cols-[1fr_0.72fr]">
           <h2 class="display-type reveal text-[18vw] md:text-[9vw]">
             Listening rooms, not boxes.
@@ -120,6 +133,9 @@ const rooms = [
       </section>
 
       <section id="anchors" class="relative min-h-[100svh] overflow-hidden px-5 py-24 md:px-8">
+        <div class="separator-strip separator-strip--section" aria-hidden="true">
+          <span>anchors</span><span>samples</span><span>blue notes</span><span>night pressure</span>
+        </div>
         <p class="reveal font-mono text-xs font-black uppercase text-pool">04 / anchors</p>
         <h2 class="display-type reveal mt-8 text-[18vw] md:text-[9.5vw]">
           Groove over noise.
@@ -136,7 +152,7 @@ const rooms = [
     </main>
 
     <script>
-      import "../scripts/fluid-ink.js";
+      import "../scripts/plotter-field.js";
     </script>
   </body>
 </html>
