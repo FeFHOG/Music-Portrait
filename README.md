@@ -3,17 +3,25 @@
 A dark, interaction-led music portrait shaped around smooth soul, electric blues,
 neon funk, soft R&B, and memory pop.
 
-The page is intentionally static-deploy friendly:
+Built as an Astro/Tailwind creative-dev page with:
 
-- `index.html` for the composition
-- `styles.css` for the visual system
-- `script.js` for the sound field, scroll reveals, pointer light, and sound-map interaction
-- `assets/night-groove-texture.png` for the local hero texture
+- oversized modern display typography
+- a pure Canvas 2D fluid-ink field using fBm/domain warping
+- GSAP + Lenis scroll choreography
+- responsive signal-map interactions
+- static output suitable for GitHub Pages
 
-Open with any static server:
+Run locally:
 
 ```bash
-python3 -m http.server 4173
+pnpm install
+pnpm dev
 ```
 
 Then visit `http://127.0.0.1:4173/`.
+
+Build:
+
+```bash
+pnpm build
+```

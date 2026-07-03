@@ -1,0 +1,142 @@
+---
+import "../styles/global.css";
+
+const anchors = ["Just the Two of Us", "I'll Play the Blues for You", "Take 'Em Up", "Daft Punk axis"];
+const rooms = [
+  ["Old Soul", "silky harmony / blue guitar / brass afterglow"],
+  ["Electric Blues", "slow heat / human phrasing / midnight weight"],
+  ["Neon Funk", "filter sweep / disco bass / chrome rhythm"],
+  ["Soft R&B", "low light / rounded drums / breathy space"],
+  ["Memory Pop", "hooks with dust / sentimental color / clean melody"],
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A dark interactive music portrait built around soul, blues, neon funk, R&B, and memory pop." />
+    <title>Music Portrait</title>
+  </head>
+  <body>
+    <canvas class="fluid-canvas" id="fluid-canvas" aria-hidden="true"></canvas>
+    <div class="grain-mask" aria-hidden="true"></div>
+
+    <main class="site-shell">
+      <header class="fixed left-0 right-0 top-0 z-40 flex items-center justify-between px-5 py-4 text-[0.7rem] font-black uppercase tracking-[0.08em] text-ink/80 md:px-8">
+        <a class="blend-stage" href="#top">Music Portrait</a>
+        <nav class="blend-stage flex gap-5 md:gap-9" aria-label="Sections">
+          <a class="nav-link" href="#signal">Signal</a>
+          <a class="nav-link" href="#rooms">Rooms</a>
+          <a class="nav-link" href="#anchors">Anchors</a>
+        </nav>
+      </header>
+
+      <section id="top" class="museum-space relative grid items-center overflow-hidden px-5 pb-14 pt-24 md:grid-cols-[0.9fr_1.18fr_0.42fr] md:px-8">
+        <div class="relative z-10 order-2 mt-10 md:order-1 md:mt-0">
+          <div class="parallax-disc relative mx-auto aspect-square w-[86vw] max-w-[34rem] overflow-hidden rounded-full border border-ink/20 md:w-[40vw]">
+            <img class="h-full w-full object-cover opacity-80 mix-blend-screen" src="/images/night-groove-texture.png" alt="" />
+            <div class="absolute inset-[14%] rounded-full border border-dashed border-ink/25"></div>
+            <div class="absolute inset-[31%] rounded-full border border-ink/30"></div>
+            <div class="absolute left-1/2 top-0 h-1/2 w-px origin-bottom rotate-[28deg] bg-ink/50"></div>
+          </div>
+        </div>
+
+        <div class="relative z-20 order-1 md:order-2">
+          <p class="reveal mb-5 font-mono text-xs font-black uppercase text-ember md:mb-8">01 / Blue notes, velvet motion</p>
+          <h1 class="display-type reveal text-[18vw] md:text-[9.3vw]">
+            <span class="block track-word">Blue</span>
+            <span class="block track-word">Noise</span>
+            <span class="stroke-type block track-word">Velvet</span>
+            <span class="stroke-type block track-word">Pulse</span>
+          </h1>
+          <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-ink/78 md:text-xl">
+            Smooth soul, electric blues, neon funk, soft R&B, and pop memory folded
+            into one pressure system.
+          </p>
+          <div class="reveal mt-8 flex flex-wrap gap-3">
+            {anchors.map((anchor) => (
+              <span class="ink-button rounded-full border border-ink/20 px-4 py-3 text-sm font-black text-ink/90">
+                {anchor}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <aside class="stage-panel reveal order-3 mt-8 p-5 md:mt-0">
+          <p class="font-mono text-[0.68rem] font-black uppercase text-pool">core signal</p>
+          <p class="mt-5 display-type text-4xl leading-[0.92] md:text-[2.35vw]">
+            Disciplined pulse.
+          </p>
+        </aside>
+      </section>
+
+      <section id="signal" class="relative min-h-[115svh] px-5 py-24 md:px-8">
+        <div class="mx-auto grid max-w-[90rem] gap-10 md:grid-cols-[0.42fr_1fr]">
+          <p class="reveal font-mono text-xs font-black uppercase text-acid">02 / signal map</p>
+          <h2 class="display-type reveal max-w-6xl text-[15vw] md:text-[7.8vw]">
+            Not a playlist. A moving weather system.
+          </h2>
+        </div>
+
+        <div class="relative mx-auto mt-16 min-h-[42rem] max-w-[90rem] border border-ink/10">
+          <div class="absolute left-[8%] top-[12%] h-[18rem] w-[18rem] rounded-full border border-ink/15"></div>
+          <div class="absolute bottom-[6%] right-[7%] h-[28rem] w-[28rem] rounded-full border border-dashed border-pool/40"></div>
+          {rooms.map(([name, copy], index) => (
+            <button
+              class="sound-node absolute max-w-[15rem] border border-ink/20 bg-void/30 p-5 text-left backdrop-blur-xl"
+              style={`--tx: ${[8, 35, 58, 25, 70][index]}vw; --ty: ${[5, 18, 8, 34, 30][index]}rem; --r: ${[-7, 4, -3, 6, -5][index]}deg;`}
+              data-title={name}
+              data-copy={copy}
+            >
+              <span class="font-mono text-xs font-black text-ember">0{index + 1}</span>
+              <strong class="mt-3 block display-type text-3xl leading-none">{name}</strong>
+              <span class="mt-4 block text-sm leading-relaxed text-ink/62">{copy}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section id="rooms" class="relative min-h-[100svh] px-5 py-24 md:px-8">
+        <div class="grid gap-8 md:grid-cols-[1fr_0.72fr]">
+          <h2 class="display-type reveal text-[18vw] md:text-[9vw]">
+            Listening rooms, not boxes.
+          </h2>
+          <div class="reveal stage-panel self-end p-6 text-lg leading-relaxed text-ink/72">
+            The structure is deliberately non-linear: each room is a pressure point in
+            the same field, not a card in a list. Hover the map and the page should
+            feel like it bends around the sound.
+          </div>
+        </div>
+
+        <div class="mt-16 grid gap-4 md:grid-cols-5">
+          {rooms.map(([name], index) => (
+            <div class="reveal min-h-[22rem] border border-ink/12 bg-ink/[0.03] p-5 backdrop-blur-md md:[&:nth-child(even)]:translate-y-16">
+              <span class="font-mono text-xs font-black text-acid">0{index + 1}</span>
+              <p class="mt-32 display-type text-4xl leading-none">{name}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="anchors" class="relative min-h-[100svh] overflow-hidden px-5 py-24 md:px-8">
+        <p class="reveal font-mono text-xs font-black uppercase text-pool">04 / anchors</p>
+        <h2 class="display-type reveal mt-8 text-[18vw] md:text-[9.5vw]">
+          Groove over noise.
+        </h2>
+        <div class="mt-16 grid gap-4 md:grid-cols-3">
+          {anchors.slice(0, 3).map((anchor, index) => (
+            <article class="reveal stage-panel min-h-[20rem] p-6">
+              <span class="font-mono text-xs font-black text-ember">sample 0{index + 1}</span>
+              <h3 class="mt-20 display-type text-4xl leading-none">{anchor}</h3>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <script>
+      import "../scripts/fluid-ink.js";
+    </script>
+  </body>
+</html>
