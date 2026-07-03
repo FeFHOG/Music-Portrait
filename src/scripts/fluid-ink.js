@@ -13,7 +13,13 @@ let width = 0;
 let height = 0;
 let dpr = 1;
 let time = 0;
+let lastPaint = 0;
 let scroll = 0;
+let simWidth = 0;
+let simHeight = 0;
+let simCanvas;
+let simCtx;
+let simImage;
 let pointer = {
   x: 0.62,
   y: 0.44,
@@ -27,10 +33,10 @@ let pointer = {
 const impulses = [];
 const palette = [
   [6, 6, 5],
-  [236, 255, 41],
+  [243, 239, 230],
   [0, 213, 255],
   [255, 79, 47],
-  [141, 92, 255],
+  [236, 255, 41],
 ];
 
 function fract(value) {
@@ -64,7 +70,7 @@ function fbm(x, y) {
   let amp = 0.5;
   let freq = 1;
 
-  for (let i = 0; i < 5; i += 1) {
+  for (let i = 0; i < 4; i += 1) {
     value += amp * noise(x * freq, y * freq);
     freq *= 2.03;
     amp *= 0.52;
@@ -94,15 +100,22 @@ function resize() {
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const quality = width < 700 ? 0.26 : 0.18;
+  simWidth = Math.max(96, Math.ceil(width * quality));
+  simHeight = Math.max(96, Math.ceil(height * quality));
+  simCanvas = simCanvas || document.createElement("canvas");
+  simCanvas.width = simWidth;
+  simCanvas.height = simHeight;
+  simCtx = simCanvas.getContext("2d", { alpha: false });
+  simImage = simCtx.createImageData(simWidth, simHeight);
 }
 
 function paintFluid() {
-  const step = width < 700 ? 4 : 3;
   const t = time * 0.00016;
-  const image = ctx.createImageData(Math.ceil(width / step), Math.ceil(height / step));
-  const data = image.data;
-  const iw = image.width;
-  const ih = image.height;
+  const data = simImage.data;
+  const iw = simWidth;
+  const ih = simHeight;
   let ptr = 0;
 
   pointer.sx += (pointer.x - pointer.sx) * 0.08;
@@ -127,8 +140,9 @@ function paintFluid() {
 
       const mdx = uvx - pointer.sx;
       const mdy = uvy - pointer.sy;
-      const mouseField = Math.exp(-(mdx * mdx + mdy * mdy) * (16 - Math.min(pointer.speed * 52, 8)));
-      let ripple = Math.sin(Math.sqrt(mdx * mdx + mdy * mdy) * 72 - t * 46) * mouseField;
+      const distToMouse = Math.sqrt(mdx * mdx + mdy * mdy);
+      const mouseField = Math.exp(-(mdx * mdx + mdy * mdy) * (28 - Math.min(pointer.speed * 80, 13)));
+      let ripple = Math.sin(distToMouse * 86 - t * 62) * mouseField;
 
       impulses.forEach((impulse) => {
         const ix = uvx - impulse.x;
@@ -138,11 +152,11 @@ function paintFluid() {
         ripple += Math.sin(dist * 92 - impulse.age * 18) * Math.exp(-dist * 15) * life;
       });
 
-      const colorBias = Math.max(0, Math.min(1, ink + ripple * 0.28 + scroll * 0.18));
-      const accent = palette[1 + Math.floor(Math.max(0, Math.min(3.99, (wx + wy + ripple + 0.5) * 2)))];
+      const colorBias = Math.max(0, Math.min(1, ink * 0.72 + ripple * 0.46 + scroll * 0.08));
+      const accent = palette[1 + Math.floor(Math.max(0, Math.min(3.99, (wx + wy + ripple + 0.36) * 2)))];
       const dark = palette[0];
       const glow = Math.max(0, Math.min(1, colorBias));
-      const contrast = Math.pow(glow, 1.6);
+      const contrast = Math.pow(glow, 2.2);
 
       data[ptr] = mix(dark[0], accent[0], contrast);
       data[ptr + 1] = mix(dark[1], accent[1], contrast);
@@ -152,15 +166,13 @@ function paintFluid() {
     }
   }
 
-  const bitmap = document.createElement("canvas");
-  bitmap.width = iw;
-  bitmap.height = ih;
-  const bitmapCtx = bitmap.getContext("2d");
-  bitmapCtx.putImageData(image, 0, 0);
+  simCtx.putImageData(simImage, 0, 0);
 
   ctx.imageSmoothingEnabled = true;
   ctx.clearRect(0, 0, width, height);
-  ctx.drawImage(bitmap, 0, 0, width, height);
+  ctx.drawImage(simCanvas, 0, 0, width, height);
+
+  drawPointerBloom();
 
   const vignette = ctx.createRadialGradient(width * 0.52, height * 0.5, 0, width * 0.52, height * 0.5, Math.max(width, height) * 0.75);
   vignette.addColorStop(0, "rgba(6, 6, 5, 0)");
@@ -169,10 +181,43 @@ function paintFluid() {
   ctx.fillRect(0, 0, width, height);
 }
 
+function drawPointerBloom() {
+  const x = pointer.sx * width;
+  const y = pointer.sy * height;
+  const strength = Math.min(1, 0.28 + pointer.speed * 24);
+  const radius = Math.min(width, height) * (0.16 + strength * 0.12);
+
+  ctx.save();
+  ctx.globalCompositeOperation = "screen";
+
+  const bloom = ctx.createRadialGradient(x, y, 0, x, y, radius);
+  bloom.addColorStop(0, `rgba(236, 255, 41, ${0.34 * strength})`);
+  bloom.addColorStop(0.22, `rgba(0, 213, 255, ${0.18 * strength})`);
+  bloom.addColorStop(0.58, `rgba(255, 79, 47, ${0.11 * strength})`);
+  bloom.addColorStop(1, "rgba(6, 6, 5, 0)");
+  ctx.fillStyle = bloom;
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.strokeStyle = `rgba(243, 239, 230, ${0.22 * strength})`;
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 3; i += 1) {
+    ctx.beginPath();
+    ctx.arc(x, y, radius * (0.22 + i * 0.18), 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
 function tick(now) {
   time = now;
   if (!reducedMotion) {
-    paintFluid();
+    if (now - lastPaint > 33) {
+      paintFluid();
+      lastPaint = now;
+    }
     impulses.forEach((impulse) => {
       impulse.age += 0.018;
     });
@@ -195,6 +240,14 @@ window.addEventListener(
     pointer.y = event.clientY / height;
     root.style.setProperty("--mx", pointer.x.toFixed(3));
     root.style.setProperty("--my", pointer.y.toFixed(3));
+
+    if (impulses.length < 12 && pointer.speed > 0.004) {
+      impulses.push({
+        x: pointer.x,
+        y: pointer.y,
+        age: 0.18,
+      });
+    }
   },
   { passive: true }
 );

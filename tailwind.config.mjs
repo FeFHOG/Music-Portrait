@@ -12,7 +12,7 @@ export default {
         violet: "#8d5cff",
       },
       fontFamily: {
-        display: ["Arial Black", "Impact", "Haettenschweiler", "Arial Narrow Bold", "sans-serif"],
+        display: ["Syne Variable", "Arial Black", "Impact", "sans-serif"],
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
